@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: mom-ms-traceability
+  main:
+    allow-bean-definition-overriding: true  # Permite override de beans si es necesario
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/multiupi
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+traceability:
+  enabled: true
+  rest-endpoints-enabled: true
+  async-processing: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    pe.gob.bcrp.traceability: DEBUG
+    org.springframework.web: DEBUG
