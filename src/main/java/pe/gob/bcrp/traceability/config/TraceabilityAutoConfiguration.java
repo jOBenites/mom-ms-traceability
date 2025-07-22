@@ -22,9 +22,14 @@ import pe.gob.bcrp.traceability.service.Impl.TraceabilityServiceImpl;
 @EnableJpaRepositories(basePackages = "pe.gob.bcrp.traceability.repository")
 public class TraceabilityAutoConfiguration {
 
+    private final UsernameContext usernameContext;
+    public TraceabilityAutoConfiguration(UsernameContext usernameContext) {
+        this.usernameContext = usernameContext;
+    }
+
     @Bean
     @ConditionalOnMissingBean
     public ITraceabilityService traceabilityService(TraceabilityEventoRepository repository) {
-        return new TraceabilityServiceImpl(repository);
+        return new TraceabilityServiceImpl(repository, usernameContext);
     }
 }

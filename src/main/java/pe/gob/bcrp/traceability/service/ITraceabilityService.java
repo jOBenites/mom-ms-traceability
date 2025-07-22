@@ -14,6 +14,7 @@ public interface ITraceabilityService {
     CompletableFuture<TraceabilityEventoResponse> logEventAsync(TraceabilityEventoRequest request);
     TraceabilityEventoResponse logSuccess(String eventType, String processId, String details);
     TraceabilityEventoResponse logError(String eventType, String processId, String details);
+    TraceabilityEventoResponse logWarning(String eventType, String processId, String details);
     TraceabilityEventoResponse logUserAction(String eventType, String processId, String userId, String details);
     List<TraceabilityEventoResponse> getEventsByProcessId(String processId);
     List<TraceabilityEventoResponse> getEventsByType(String eventType);

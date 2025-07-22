@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.gob.bcrp.traceability.config.TraceabilityProperties;
+import pe.gob.bcrp.traceability.config.UsernameContext;
 import pe.gob.bcrp.traceability.model.dto.TraceabilityEventoRequest;
 import pe.gob.bcrp.traceability.model.dto.TraceabilityEventoResponse;
 import pe.gob.bcrp.traceability.model.entity.TraceabilityEvento;
@@ -24,10 +25,12 @@ public class TraceabilityServiceImpl implements ITraceabilityService {
 
     private TraceabilityEventoRepository repository;
     private final TraceabilityProperties properties;
+    private final UsernameContext usernameContext;
 
-    public TraceabilityServiceImpl(TraceabilityEventoRepository repository) {
+    public TraceabilityServiceImpl(TraceabilityEventoRepository repository, UsernameContext usernameContext) {
         this.repository = repository;
         this.properties = new TraceabilityProperties(); // Default properties
+        this.usernameContext = usernameContext;
     }
 
     @Autowired(required = false)
@@ -51,13 +54,19 @@ public class TraceabilityServiceImpl implements ITraceabilityService {
     @Override
     public TraceabilityEventoResponse logSuccess(String eventType, String processId, String details) {
         return logEvent(new TraceabilityEventoRequest(eventType, "OK", null, processId,
-                "SYSTEM", details, applicationName));
+                usernameContext.getUsername(), details, applicationName));
     }
     @Override
     public TraceabilityEventoResponse logError(String eventType, String processId, String details) {
         return logEvent(new TraceabilityEventoRequest(eventType, "ERROR", null, processId,
-                "SYSTEM", details, applicationName));
+                usernameContext.getUsername(), details, applicationName));
     }
+    @Override
+    public TraceabilityEventoResponse logWarning(String eventType, String processId, String details) {
+        return logEvent(new TraceabilityEventoRequest(eventType, "ERROR", null, processId,
+                usernameContext.getUsername(), details, applicationName));
+    }
+
     @Override
     public TraceabilityEventoResponse logUserAction(String eventType, String processId,
                                                    String userId, String details) {
