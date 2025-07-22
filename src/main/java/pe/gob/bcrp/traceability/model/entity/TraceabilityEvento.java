@@ -1,4 +1,4 @@
-package pe.gob.bcrp.traceability.model;
+package pe.gob.bcrp.traceability.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +40,10 @@ public class TraceabilityEvento {
     @Column(name = "usuario")
     private String usuario;
 
+    @Column(name = "fec_reg")
+    @Comment("Fecha de registro")
+    private LocalDateTime fechaCreacion;
+
     @Column(name = "detalle", columnDefinition = "TEXT")
     private String detalle;
 
@@ -46,12 +51,13 @@ public class TraceabilityEvento {
     private String applicationName;
 
     public TraceabilityEvento(String tipoEvento, String estado, LocalDateTime hora,
-                             String procesoId, String usuario, String detalle) {
+                             String procesoId, String usuario, String detalle, LocalDateTime fechaCreacion) {
         this.tipoEvento = tipoEvento;
         this.estado = estado;
         this.hora = hora;
         this.procesoId = procesoId;
         this.usuario = usuario;
         this.detalle = detalle;
+        this.fechaCreacion = fechaCreacion;
     }
 }

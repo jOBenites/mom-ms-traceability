@@ -27,33 +27,13 @@ public class TraceabilityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/eventos/process/{processId}")
+    @GetMapping("/eventos/proceso/{processId}")
     public ResponseEntity<List<TraceabilityEventoResponse>> getEventsByProcess(@PathVariable String processId) {
         List<TraceabilityEventoResponse> events = traceabilityService.getEventsByProcessId(processId);
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/eventos/type/{eventType}")
-    public ResponseEntity<List<TraceabilityEventoResponse>> getEventsByType(@PathVariable String eventType) {
-        List<TraceabilityEventoResponse> events = traceabilityService.getEventsByType(eventType);
-        return ResponseEntity.ok(events);
-    }
-
-    @GetMapping("/eventos/status/{status}")
-    public ResponseEntity<List<TraceabilityEventoResponse>> getEventsByStatus(@PathVariable String status) {
-        List<TraceabilityEventoResponse> events = traceabilityService.getEventsByStatus(status);
-        return ResponseEntity.ok(events);
-    }
-
-    @GetMapping("/eventos/date-range")
-    public ResponseEntity<List<TraceabilityEventoResponse>> getEventsByDateRange(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        List<TraceabilityEventoResponse> events = traceabilityService.getEventsByDateRange(startDate, endDate);
-        return ResponseEntity.ok(events);
-    }
-
-    @GetMapping("/proceso/{processId}/traceability")
+    @GetMapping("/proceso/{processId}/trazabilidad")
     public ResponseEntity<List<TraceabilityEventoResponse>> getProcessTraceability(
             @PathVariable String processId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,

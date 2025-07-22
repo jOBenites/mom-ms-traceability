@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.gob.bcrp.traceability.config.TraceabilityProperties;
 import pe.gob.bcrp.traceability.model.dto.TraceabilityEventoRequest;
 import pe.gob.bcrp.traceability.model.dto.TraceabilityEventoResponse;
-import pe.gob.bcrp.traceability.model.TraceabilityEvento;
+import pe.gob.bcrp.traceability.model.entity.TraceabilityEvento;
 import pe.gob.bcrp.traceability.repository.TraceabilityEventoRepository;
 import pe.gob.bcrp.traceability.service.ITraceabilityService;
 
@@ -118,10 +118,10 @@ public class TraceabilityServiceImpl implements ITraceabilityService {
                 request.hora(),
                 request.procesoId(),
                 request.usuario(),
-                request.detalle()
+                request.detalle(),
+                LocalDateTime.now()
         );
 
-        // Set application name if not provided in request
         String appName = request.nombreApp() != null ? request.nombreApp() : applicationName;
         event.setApplicationName(appName);
 
